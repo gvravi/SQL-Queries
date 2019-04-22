@@ -1,0 +1,207 @@
+////for doctors
+LOAD DATA local INFILE 'C:/Users/Avon/Desktop/crm/carebd/doctorslist_caredb.csv' INTO TABLE llx_socpeople
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
+	(`rowid`, `entity`, `ref_ext`, @ref_int, `employee`, `fk_establishment`, `datec`, `tms`, `fk_user_creat`, `fk_user_modif`, `login`, `pass`, `pass_crypted`, `pass_temp`, @api_key, `gender`, `civility`, `lastname`, `firstname`, `address`, `zip`, `jabberid`, `skype`, @photo, `no_email`, `priv`, `fk_user_creat`, `fk_user_modif`, `note_private`, `note_public`, @default_lang, @canvas, @import_key, `statut`, `regnum`, `dqualif`)
+	SET fk_soc = nullif(@fk_soc,''),
+    birthday = nullif(@birthday,''),
+    photo = nullif(@photo,''),
+	default_lang = nullif(@default_lang,''),
+	canvas = nullif(@canvas,''),
+	import_key = nullif(@import_key,'');
+	
+	
+	
+	//////for users uploading
+LOAD DATA local INFILE 'D:/Kusuma/excel/sankalpuserslist.csv' INTO TABLE sankalp.llx_user
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
+	 ( `rowid` ,
+    `entity` ,
+    @ref_ext ,
+    @ref_int ,
+    `employee` ,
+    `fk_establishment` ,
+    `datec` ,
+    `tms` ,
+    @fk_user_creat ,
+    @fk_user_modif ,
+    `login` ,
+    `pass` ,
+    `pass_crypted` ,
+    @pass_temp ,
+    @api_key ,
+    `gender` ,
+    @civility ,
+    `lastname` ,
+    `firstname` ,
+    `address` ,
+    `zip` ,
+    `town` ,
+    `fk_state` ,
+    `fk_country` ,
+    `job`,
+    `skype` ,
+    `office_phone` ,
+    `office_fax`,
+    `user_mobile`,
+    `email`,
+    `signature`,
+    `admin` ,
+    `module_comm` ,
+    `module_compta`,
+    @fk_soc,
+    @fk_socpeople,
+    @fk_member,
+    @fk_user,
+    @note_public,
+    `note` ,
+    @datelastlogin,
+    @datepreviouslogin,
+    @egroupware_id,
+    `ldap_sid`,
+    @openid,
+    `statut`,
+    @photo,
+    @lang,
+    `color`,
+    @barcode,
+    `fk_barcode_type`,
+    `accountancy_code`,
+    `nb_holiday`,
+    @thm,
+    @tjm,
+    @salary,
+    @salaryextra,
+    @weeklyhours,
+    @bsalary,
+    @pf,
+    @hra,
+    @pt,
+    @ca,
+    @tds,
+    @ma,
+    @advance,
+    @ea,
+    @sa,
+    @total,
+    @totdud,
+    @netpay,
+    @usignature
+)
+SET ref_ext = nullif(@ref_ext,''),
+    ref_int = nullif(@ref_int,''),
+    fk_user_creat = nullif(@fk_user_creat,''),
+	fk_user_modif = nullif(@fk_user_modif,''),
+	pass_temp = nullif(@pass_temp,''),
+	api_key = nullif(@api_key,''),
+	civility = nullif(@civility,''),
+	fk_soc = nullif(@fk_soc,''),
+	fk_socpeople = nullif(@fk_socpeople,''),
+	fk_member = nullif(@fk_member,''),
+	fk_user = nullif(@fk_user,''),
+	note_public = nullif(@note_public,''),
+	datelastlogin = nullif(@datelastlogin,''),
+	datepreviouslogin = nullif(@datepreviouslogin,''),
+	egroupware_id = nullif(@egroupware_id,''),
+	openid = nullif(@openid,''),
+	photo = nullif(@photo,''),
+	lang = nullif(@lang,''),
+	barcode = nullif(@barcode,''),
+	thm = nullif(@thm,''),
+	tjm = nullif(@tjm,''),
+	salary = nullif(@salary,''),
+	salaryextra = nullif(@salaryextra,''),
+	weeklyhours = nullif(@weeklyhours,''),
+	bsalary = nullif(@bsalary,''),
+	pf = nullif(@pf,''),
+	hra = nullif(@hra,''),
+	pt = nullif(@pt,''),
+	ca = nullif(@ca,''),
+	tds = nullif(@tds,''),
+	ma = nullif(@ma,''),
+	advance = nullif(@advance,''),
+	ea = nullif(@ea,''),
+	sa = nullif(@sa,''),
+	total = nullif(@total,''),
+	totdud = nullif(@totdud,''),
+	netpay = nullif(@netpay,''),
+	usignature = nullif(@usignature,'');
+	
+	//////////////////////////////For user rights INT((ROWS(A$1:A1)-1)/7)+1 formula for incrementing row values
+	
+	LOAD DATA local INFILE 'D:/Kusuma/excel/userrightssankalp.csv' INTO TABLE sankalp.llx_user_rights
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n'
+        (`rowid`, `fk_user`, `fk_id`);
+
+
+update llx_societe set ward_level=0 where ward_level is null;
+
+//INSERT INTO llx_commandedet (fk_commande, description, qty, tva_tx,tva_tx_state, localtax1_tx, localtax2_tx, localtax1_type, localtax2_type, fk_product, product_type, remise_percent,price, subprice, rang, special_code, buy_price_ht, info_bits, total_ht, total_tva,total_tva_state, total_ttc, total_localtax1, total_localtax2, fk_multicurrency, multicurrency_code, multicurrency_subprice, multicurrency_total_ht, multicurrency_total_tva, multicurrency_total_ttc,fk_cons,label_text) VALUES (11, ' ', 1 , 0.000, , 0.000 , 0.000 , 0 , 0 , 530, 1, 0 , 1500.00, 1500.00, 1 , 0 , 1500.00, 0 , 1500.00, 0, 0, 1500, 0.00000000 , 0.00000000 , 0 , 'INR' , 1500.00, 1500.00, 0, 1500, 8, 'Imaging' );
+
+///////////////////////////
+SELECT * FROM llx_product where tva_tx_state is null;
+update llx_product set tva_tx_state=0.000 where tva_tx_state is null;
+
+
+///////////////////////////////
+ALTER TABLE `sankalptest`.`llx_cabinetmed_cons` ADD COLUMN `date1` DATETIME AFTER `reasonnub`,
+ ADD COLUMN `date2` DATETIME AFTER `date1`,
+ ADD COLUMN `date3` DATETIME AFTER `date2`,
+ ADD COLUMN `date4` DATETIME AFTER `date3`,
+ ADD COLUMN `date5` DATETIME AFTER `date4`,
+ ADD COLUMN `date6` DATETIME AFTER `date5`,
+ ADD COLUMN `date7` DATETIME AFTER `date6`,
+ ADD COLUMN `date8` DATETIME AFTER `date7`,
+ ADD COLUMN `date9` DATETIME AFTER `date8`,
+ ADD COLUMN `date10` DATETIME AFTER `date9`,
+ ADD COLUMN `date11` DATETIME AFTER `date10`,
+ ADD COLUMN `date12` DATETIME AFTER `date11`,
+/////////////////////////////////
+LOAD DATA local INFILE 'D:/Disk -D Data/Shrisankalp/updatewardprice.csv' INTO TABLE temp_update_table
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n' (`fk_product`, `price`);
+UPDATE llx_product_price
+INNER JOIN temp_update_table on temp_update_table.fk_product = llx_product_price.fk_product
+SET llx_product_price.price_ttc= temp_update_table.price;
+	LOAD DATA local INFILE 'D:/Disk -D Data/Shrisankalp/updatewardprice.csv' INTO TABLE sankalp.temp_update_table
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n' (`fk_product`, `w1`);
+UPDATE llx_product
+INNER JOIN temp_update_table on temp_update_table.fk_product = llx_product.rowid
+SET llx_product.stock = temp_update_table.price;
+SELECT * FROM llx_product_price l;
+SELECT * FROM llx_product l;
+	
+///////////////////////////////////////////////////////////////////
+SELECT * FROM llx_product_price l;
+select * from product
+SELECT * FROM llx_societe l;
+select * from temp_update_table;
+SELECT * FROM llx_product l;
+UPDATE llx_product_price
+INNER JOIN temp_update_table on temp_update_table.fk_product = llx_product_price.fk_product
+SET llx_product_price.w2= temp_update_table.price;
+select *from  llx_product
+INNER JOIN temp_update_table on temp_update_table.fk_product = llx_product.rowid;
+UPDATE llx_product
+INNER JOIN temp_update_table on temp_update_table.fk_product = llx_product.rowid
+SET llx_product.price_min = temp_update_table.price;
+
+select * from llx_product_price
+INNER JOIN temp_update_table on temp_update_table.fk_product = llx_product_price.fk_product where llx_product_price.w1=0;
+select * from llx_product
+INNER JOIN temp_update_table on temp_update_table.fk_product = llx_product.rowid where llx_product.price_min=0;
+/////////////////////////////////////
+select * from llx_testrefvalues;
+LOAD DATA local INFILE 'C:/Users/Refurb IT/Desktop/productpricedatewrong.csv' INTO TABLE temp_update_table
+  FIELDS TERMINATED BY ',' ENCLOSED BY '"'
+  LINES TERMINATED BY '\r\n';
+select * from llx_cabinetmed_diaglec;
+select * FROM temp_update_table ;
+SELECT * FROM llx_product_price l;
+UPDATE llx_product_price
+INNER JOIN temp_update_table on temp_update_table.fk_product = llx_product_price.rowid
+SET llx_product_price.date_price = temp_update_table.date;
+	
